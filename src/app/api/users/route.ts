@@ -36,6 +36,12 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Reject any attempts to store or transmit passwords via this API.
+    if (body && body.password) {
+      console.error('[API] Rejected request with password field for email:', body.email);
+      return NextResponse.json({ error: 'Storing passwords via this API is forbidden' }, { status: 400 });
+    }
     
     // Check if email already exists (prevent duplicates)
     const db = getRealtimeDb();
@@ -59,7 +65,7 @@ export async function POST(request: NextRequest) {
           }
         }
         
-        // Email doesn't exist, save to Firebase
+        // Email doesn't exist, save to Firebase (profile must not contain credentials)
         console.log('[API] Saving user to Firebase:', body.id);
         await db.ref(`users/${body.id}`).set(body);
         console.log('[API] ✓ User saved to Firebase');

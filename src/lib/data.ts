@@ -86,17 +86,16 @@ export const addStudentsToClass = (className: string, newStudents: { name: strin
     newStudents.forEach(student => {
         const studentExists = existingStudentsInClass.some(u => u.rollNumber === student.rollNumber);
         if (!studentExists) {
-            const newUser: User = {
+              const newUser: User = {
                 id: `user-${Date.now()}-${student.rollNumber}`,
                 name: student.name,
                 rollNumber: student.rollNumber,
                 email: `${student.name.toLowerCase().replace(/\s/g,'.')}.${student.rollNumber}@example.com`,
-                password: 'password123',
                 role: 'student',
                 class: className,
                 department: 'Imported',
                 avatarUrl: 'https://placehold.co/100x100.png',
-            };
+              };
             newUsers.push(newUser);
             addedCount++;
         } else {
@@ -263,7 +262,6 @@ function initializeData() {
       rollNumber: '1',
       name: 'Alice Johnson',
       email: 'alice@example.com',
-      password: 'password123',
       role: 'student',
       department: 'Computer Science',
       class: 'SE CSE A',
@@ -275,7 +273,6 @@ function initializeData() {
       rollNumber: '2',
       name: 'Bob Williams',
       email: 'bob@example.com',
-      password: 'password123',
       role: 'student',
       department: 'Computer Science',
       class: 'SE CSE A',
@@ -287,7 +284,6 @@ function initializeData() {
       rollNumber: '3',
       name: 'Charlie Brown',
       email: 'charlie@example.com',
-      password: 'password123',
       role: 'student',
       department: 'Computer Science',
       class: 'SE CSE B',
@@ -298,7 +294,6 @@ function initializeData() {
       id: 'faculty1',
       name: 'Dr. Evelyn Reed',
       email: 'evelyn@example.com',
-      password: 'password123',
       role: 'faculty',
       department: 'Computer Science',
       avatarUrl: 'https://placehold.co/100x100.png',

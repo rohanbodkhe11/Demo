@@ -1,55 +1,54 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getUsers } from '@/lib/data';
-import { getRealtimeDb } from '@/lib/firebase-server';
+import { getRealtimeDb, getFirebaseAuthAdmin } from '@/lib/firebase-server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, role } = await request.json();
-    console.log('[AUTH] Login attempt:', email, 'as', role);
-    
-    // First try Firebase Realtime Database
-    const db = getRealtimeDb();
-    if (db) {
+    const body = await request.json();
+
+    // Preferred flow: client signs in using Firebase client SDK and sends idToken here
+    if (body?.idToken) {
+      const adminAuth = getFirebaseAuthAdmin();
+      if (!adminAuth) {
+        console.error('[AUTH] Admin auth not configured');
+        return NextResponse.json({ error: 'Server not configured for token verification' }, { status: 500 });
+      }
+
       try {
-        console.log('[AUTH] Querying Firebase for user...');
-        const snapshot = await db.ref('users').get();
-        if (snapshot.exists()) {
-          const usersData = snapshot.val();
-          let users: any[] = [];
-          if (typeof usersData === 'object' && !Array.isArray(usersData)) {
-            users = Object.values(usersData);
-          } else if (Array.isArray(usersData)) {
-            users = usersData;
-          }
-          
-          const found = users.find(
-            (u: any) => u.email === email && u.password === password && u.role === role
-          );
-          if (found) {
-            console.log('[AUTH] ✓ User authenticated from Firebase:', email);
-            const { password: _p, ...safe } = found;
-            return NextResponse.json(safe);
+        const decoded = await adminAuth.verifyIdToken(body.idToken as string);
+        const uid = decoded.uid;
+        console.log('[AUTH] Verified idToken for uid:', uid);
+
+        // Try Realtime DB for profile
+        const db = getRealtimeDb();
+        if (db) {
+          try {
+            const snapshot = await db.ref(`users/${uid}`).get();
+            if (snapshot.exists()) {
+              const profile = snapshot.val();
+              return NextResponse.json(profile);
+            }
+          } catch (err) {
+            console.error('[AUTH] Realtime DB lookup failed:', err);
           }
         }
+
+        // Fallback to in-memory/file data
+        const users = getUsers();
+        const found = users.find(u => u.id === uid);
+        if (found) return NextResponse.json(found);
+
+        return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
       } catch (err) {
-        console.error('[AUTH] Firebase error:', err);
-        // fall back to file-based
+        console.error('[AUTH] Token verification failed:', err);
+        return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
       }
     }
 
-    // Fallback to file-based users
-    console.log('[AUTH] Using fallback authentication');
-    const users = getUsers();
-    const found = users.find(u => u.email === email && u.password === password && u.role === role);
-    if (!found) {
-      console.log('[AUTH] Login failed - invalid credentials:', email);
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-    }
-
-    console.log('[AUTH] ✓ User authenticated (fallback):', email);
-    const { password: _p, ...safe } = found as any;
-    return NextResponse.json(safe);
+    // Deprecated/direct-password login is no longer supported — do not compare raw passwords server-side
+    console.log('[AUTH] /api/auth/login called without idToken — reject');
+    return NextResponse.json({ error: 'Use Firebase client SDK to sign in and send idToken' }, { status: 400 });
   } catch (err) {
     console.error('[AUTH] Error:', err);
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
