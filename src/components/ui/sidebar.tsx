@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from 'framer-motion'
+import FocusTrap from 'focus-trap-react'
 
 type SidebarContextProps = {
   isOpen: boolean
@@ -42,49 +43,6 @@ const Sidebar = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const { isOpen, setIsOpen } = React.useContext(SidebarContext) as SidebarContextProps
   const panelRef = React.useRef<HTMLDivElement | null>(null)
-
-  // Focus trap & escape
-  React.useEffect(() => {
-    if (!isOpen || !panelRef.current) return
-
-    const container = panelRef.current
-    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    const focusable = Array.from(container.querySelectorAll<HTMLElement>(focusableSelector))
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsOpen(false)
-        return
-      }
-      if (e.key !== 'Tab') return
-
-      if (focusable.length === 0) {
-        e.preventDefault()
-        return
-      }
-
-      if (e.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
-        }
-      } else {
-        // Tab
-        if (document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
-        }
-      }
-    }
-
-    // focus first element for keyboard users
-    setTimeout(() => first?.focus())
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [isOpen, setIsOpen])
 
   const overlayVariants = {
     hidden: { opacity: 0 },
@@ -134,9 +92,11 @@ const Sidebar = React.forwardRef<
               exit="hidden"
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
-              <div ref={panelRef} className={cn('h-full flex flex-col')} aria-hidden={!isOpen}>
-                {props.children}
-              </div>
+              <FocusTrap active={isOpen} focusTrapOptions={{ clickOutsideDeactivates: true, escapeDeactivates: true, onDeactivate: () => setIsOpen(false) }}>
+                <div ref={panelRef} className={cn('h-full flex flex-col')} aria-hidden={!isOpen}>
+                  {props.children}
+                </div>
+              </FocusTrap>
             </motion.div>
           </motion.div>
         )}
