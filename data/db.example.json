@@ -1,0 +1,839 @@
+{
+  "users": [
+    {
+      "id": "student1",
+      "rollNumber": "1",
+      "name": "Alice Johnson",
+      "email": "redacted@example.com",
+      "role": "student",
+      "department": "Computer Science",
+      "class": "SE CSE A",
+      "avatarUrl": "https://placehold.co/100x100.png",
+      "mobileNumber": "0000000000"
+    },
+    {
+      "id": "student2",
+      "rollNumber": "2",
+      "name": "Bob Williams",
+      "email": "redacted@example.com",
+      "role": "student",
+      "department": "Computer Science",
+      "class": "SE CSE A",
+      "avatarUrl": "https://placehold.co/100x100.png",
+      "mobileNumber": "0000000000"
+    },
+    {
+      "id": "student3",
+      "rollNumber": "3",
+      "name": "Charlie Brown",
+      "email": "redacted@example.com",
+      "role": "student",
+      "department": "Computer Science",
+      "class": "SE CSE B",
+      "avatarUrl": "https://placehold.co/100x100.png",
+      "mobileNumber": "0000000000"
+    },
+    {
+      "id": "faculty1",
+      "name": "Dr. Evelyn Reed",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "department": "Computer Science",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ECE",
+      "class": ""
+    },
+    {
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ECE",
+      "class": ""
+    },
+    {
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ECE",
+      "class": ""
+    },
+    {
+      "id": "user-1763064327415",
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ECE",
+      "class": "",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763065623639",
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ece",
+      "class": "",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763068999763-11",
+      "name": "rohan bodkhe",
+      "rollNumber": "11",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763104712303",
+      "name": "rohan bodkhe",
+      "email": "redacted@example.com",
+      "role": "student",
+      "mobileNumber": "0000000000",
+      "department": "ece",
+      "class": "sy ece A",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763105147890-09",
+      "name": "onkar bodhane",
+      "rollNumber": "09",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763113692040-02",
+      "name": "Rohit Adhude",
+      "rollNumber": "02",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763113701465-01",
+      "name": "Ramprasad Adbhai",
+      "rollNumber": "01",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763113721126-07",
+      "name": "pratik bhise",
+      "rollNumber": "07",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763113734169-04",
+      "name": "shivam ambilwade",
+      "rollNumber": "04",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763113754585-03",
+      "name": "ajit aher",
+      "rollNumber": "03",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1763114178993-13",
+      "name": "chaitanya kakde",
+      "rollNumber": "13",
+      "email": "redacted@example.com",
+      "role": "student",
+      "class": "SY ECE A",
+      "department": "Imported",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "user-1768929367697",
+      "name": "ff",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "mobileNumber": "0000000000",
+      "department": "ECE",
+      "class": "",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    },
+    {
+      "id": "QoSW1YpcBcc2Ljm8l1mA8TxAQ9z1",
+      "name": "Rohan Bodkhe",
+      "email": "redacted@example.com",
+      "role": "faculty",
+      "class": "",
+      "department": "Electronics And Computer Engineering",
+      "avatarUrl": "https://placehold.co/100x100.png"
+    }
+  ],
+  "courses": [
+    {
+      "id": "course-1763068284512",
+      "facultyId": "user-1763065623639",
+      "facultyName": "rohan bodkhe",
+      "name": "DSA",
+      "courseCode": "bdc2",
+      "classes": [
+        "SY ECE A"
+      ],
+      "totalLectures": 40,
+      "description": "rtyjijmij huhu",
+      "type": "Theory"
+    },
+    {
+      "id": "course-1763114243887",
+      "facultyId": "user-1763065623639",
+      "facultyName": "rohan bodkhe",
+      "name": "EDT",
+      "courseCode": "BCS1213",
+      "classes": [
+        "SY ECE B"
+      ],
+      "totalLectures": 40,
+      "description": "wefefef 3fefqef ae",
+      "type": "Practical"
+    },
+    {
+      "id": "course-1768932676532",
+      "facultyId": "QoSW1YpcBcc2Ljm8l1mA8TxAQ9z1",
+      "facultyName": "Rohan Bodkhe",
+      "name": "DBMS",
+      "courseCode": "ECE202",
+      "classes": [
+        "SY ECE A"
+      ],
+      "totalLectures": 40,
+      "description": "hueifiewfihef hofhewofho",
+      "type": "Theory"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "att-rep-1763069912590-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763069948433-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763069987634-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763070084898-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763070323925-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763071439422-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763071629884-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-13",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113597174-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113597174-user-1763105147890-09",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763105147890-09",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763068999763-11",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763068999763-11",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763105147890-09",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763105147890-09",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763113692040-02",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763113692040-02",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763113701465-01",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763113701465-01",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763113721126-07",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763113721126-07",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1763113772561-user-1763113734169-04",
+      "courseId": "course-1763068284512",
+      "studentId": "user-1763113734169-04",
+      "date": "2025-11-14",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763068999763-11",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763068999763-11",
+      "date": "2026-01-20",
+      "isPresent": true,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763105147890-09",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763105147890-09",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763113692040-02",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763113692040-02",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763113701465-01",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763113701465-01",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763113721126-07",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763113721126-07",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763113734169-04",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763113734169-04",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763113754585-03",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763113754585-03",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    },
+    {
+      "id": "att-rep-1768932877133-user-1763114178993-13",
+      "courseId": "course-1768932676532",
+      "studentId": "user-1763114178993-13",
+      "date": "2026-01-20",
+      "isPresent": false,
+      "class": "SY ECE A"
+    }
+  ],
+  "courseStudents": {},
+  "attendanceReports": [
+    {
+      "id": "rep-1763069912590",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "11:15 - 12:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763069948433",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "1:15 - 2:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763069987634",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "1:15 - 2:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763070084898",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "11:15 - 12:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763070323925",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "11:15 - 12:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763071439422",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "2:15 - 3:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763071629884",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-13",
+      "timeSlot": "2:15 - 3:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": false
+        }
+      ]
+    },
+    {
+      "id": "rep-1763113597174",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-14",
+      "timeSlot": "2:15 - 3:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763105147890-09",
+          "studentName": "onkar bodhane",
+          "rollNumber": "09",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1763113772561",
+      "courseId": "course-1763068284512",
+      "courseName": "DSA",
+      "courseCode": "bdc2",
+      "class": "SY ECE A",
+      "date": "2025-11-14",
+      "timeSlot": "2:15 - 3:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763105147890-09",
+          "studentName": "onkar bodhane",
+          "rollNumber": "09",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763113692040-02",
+          "studentName": "Rohit Adhude",
+          "rollNumber": "02",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763113701465-01",
+          "studentName": "Ramprasad Adbhai",
+          "rollNumber": "01",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763113721126-07",
+          "studentName": "pratik bhise",
+          "rollNumber": "07",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763113734169-04",
+          "studentName": "shivam ambilwade",
+          "rollNumber": "04",
+          "isPresent": true
+        }
+      ]
+    },
+    {
+      "id": "rep-1768932877133",
+      "courseId": "course-1768932676532",
+      "courseName": "DBMS",
+      "courseCode": "ECE202",
+      "class": "SY ECE A",
+      "date": "2026-01-20",
+      "timeSlot": "11:15 - 12:15",
+      "attendance": [
+        {
+          "studentId": "user-1763068999763-11",
+          "studentName": "rohan bodkhe",
+          "rollNumber": "11",
+          "isPresent": true
+        },
+        {
+          "studentId": "user-1763105147890-09",
+          "studentName": "onkar bodhane",
+          "rollNumber": "09",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763113692040-02",
+          "studentName": "Rohit Adhude",
+          "rollNumber": "02",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763113701465-01",
+          "studentName": "Ramprasad Adbhai",
+          "rollNumber": "01",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763113721126-07",
+          "studentName": "pratik bhise",
+          "rollNumber": "07",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763113734169-04",
+          "studentName": "shivam ambilwade",
+          "rollNumber": "04",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763113754585-03",
+          "studentName": "ajit aher",
+          "rollNumber": "03",
+          "isPresent": false
+        },
+        {
+          "studentId": "user-1763114178993-13",
+          "studentName": "chaitanya kakde",
+          "rollNumber": "13",
+          "isPresent": false
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1763069912594-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (11:15 - 12:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T21:38:32.594Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763069948434-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (1:15 - 2:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T21:39:08.435Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763069987654-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (1:15 - 2:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T21:39:47.654Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763070084898-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (11:15 - 12:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T21:41:24.898Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763070323956-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (11:15 - 12:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T21:45:23.956Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763071439423-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 13th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T22:03:59.423Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763071629885-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Absent on November 13th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-13T22:07:09.885Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113597174-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:46:37.174Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113597174-user-1763105147890-09",
+      "studentId": "user-1763105147890-09",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:46:37.174Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763105147890-09",
+      "studentId": "user-1763105147890-09",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763113692040-02",
+      "studentId": "user-1763113692040-02",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763113701465-01",
+      "studentId": "user-1763113701465-01",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763113721126-07",
+      "studentId": "user-1763113721126-07",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1763113772573-user-1763113734169-04",
+      "studentId": "user-1763113734169-04",
+      "message": "Attendance marked for DSA: You were Present on November 14th, 2025 (2:15 - 3:15). Marked by rohan bodkhe.",
+      "timestamp": "2025-11-14T09:49:32.573Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763068999763-11",
+      "studentId": "user-1763068999763-11",
+      "message": "Attendance marked for DBMS: You were Present on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763105147890-09",
+      "studentId": "user-1763105147890-09",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763113692040-02",
+      "studentId": "user-1763113692040-02",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763113701465-01",
+      "studentId": "user-1763113701465-01",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763113721126-07",
+      "studentId": "user-1763113721126-07",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763113734169-04",
+      "studentId": "user-1763113734169-04",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763113754585-03",
+      "studentId": "user-1763113754585-03",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    },
+    {
+      "id": "notif-1768932877134-user-1763114178993-13",
+      "studentId": "user-1763114178993-13",
+      "message": "Attendance marked for DBMS: You were Absent on January 20th, 2026 (11:15 - 12:15). Marked by Rohan Bodkhe.",
+      "timestamp": "2026-01-20T18:14:37.134Z",
+      "isRead": false
+    }
+  ]
+}
