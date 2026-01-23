@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { motion, AnimatePresence } from 'framer-motion'
 
 type SidebarContextProps = {
   isOpen: boolean
@@ -40,6 +41,60 @@ const Sidebar = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const { isOpen, setIsOpen } = React.useContext(SidebarContext) as SidebarContextProps
+  const panelRef = React.useRef<HTMLDivElement | null>(null)
+
+  // Focus trap & escape
+  React.useEffect(() => {
+    if (!isOpen || !panelRef.current) return
+
+    const container = panelRef.current
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    const focusable = Array.from(container.querySelectorAll<HTMLElement>(focusableSelector))
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+        return
+      }
+      if (e.key !== 'Tab') return
+
+      if (focusable.length === 0) {
+        e.preventDefault()
+        return
+      }
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        // Tab
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    // focus first element for keyboard users
+    setTimeout(() => first?.focus())
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [isOpen, setIsOpen])
+
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+
+  const panelVariants = {
+    hidden: { x: '-100%' },
+    visible: { x: '0%' },
+  }
 
   return (
     <>
@@ -54,39 +109,38 @@ const Sidebar = React.forwardRef<
       />
 
       {/* Mobile drawer / overlay */}
-      <div
-        className={cn(
-          "fixed inset-0 z-40 lg:hidden",
-          isOpen ? 'block' : 'pointer-events-none'
-        )}
-        aria-hidden={!isOpen}
-      >
-        {/* overlay */}
-          <div
-            className={cn(
-              'absolute inset-0 bg-black/40 transition-opacity duration-300',
-              isOpen ? 'opacity-100' : 'opacity-0'
-            )}
-            onClick={() => setIsOpen(false)}
-            aria-hidden={isOpen ? 'false' : 'true'}
-          />
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div className="fixed inset-0 z-40 lg:hidden" initial="hidden" animate="visible" exit="hidden">
+            <motion.div
+              className="absolute inset-0 bg-black/40"
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ duration: 0.22 }}
+              onClick={() => setIsOpen(false)}
+              aria-hidden="true"
+            />
 
-          {/* panel (mobile drawer) */}
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-            className={cn(
-              'absolute left-0 top-0 bottom-0 w-72 bg-background shadow-lg transform transition-transform duration-300 ease-in-out',
-              isOpen ? 'translate-x-0' : '-translate-x-full'
-            )}
-          >
-            {/* allow same children structure inside panel */}
-            <div className={cn('h-full flex flex-col')} aria-hidden={!isOpen}>
-              {props.children}
-            </div>
-          </div>
-      </div>
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
+              className="absolute left-0 top-0 bottom-0 w-72 bg-background shadow-lg"
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            >
+              <div ref={panelRef} className={cn('h-full flex flex-col')} aria-hidden={!isOpen}>
+                {props.children}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 })
