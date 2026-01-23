@@ -39,15 +39,44 @@ const Sidebar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
+  const { isOpen, setIsOpen } = React.useContext(SidebarContext) as SidebarContextProps
+
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "h-screen w-64 border-r bg-background",
-        className
-      )}
-      {...props}
-    />
+    <>
+      {/* Desktop sidebar */}
+      <div
+        ref={ref}
+        className={cn(
+          "hidden lg:flex h-screen w-64 border-r bg-background flex-col",
+          className
+        )}
+        {...props}
+      />
+
+      {/* Mobile drawer / overlay */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 lg:hidden",
+          isOpen ? 'block' : 'pointer-events-none'
+        )}
+        aria-hidden={!isOpen}
+      >
+        {/* overlay */}
+        <div
+          className={cn(
+            'absolute inset-0 bg-black/40 transition-opacity',
+            isOpen ? 'opacity-100' : 'opacity-0'
+          )}
+          onClick={() => setIsOpen(false)}
+        />
+
+        {/* panel */}
+        <div className={cn('absolute left-0 top-0 bottom-0 w-72 bg-background shadow-lg transform transition-transform', isOpen ? 'translate-x-0' : '-translate-x-full')}>
+          {/* allow same children structure inside panel */}
+          <div className={cn('h-full flex flex-col')}>{props.children}</div>
+        </div>
+      </div>
+    </>
   )
 })
 Sidebar.displayName = "Sidebar"
