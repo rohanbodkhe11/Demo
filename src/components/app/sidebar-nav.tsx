@@ -56,7 +56,7 @@ export function SidebarNav({ user }: { user: User }) {
           {navItems.map((item) => (
             <SidebarMenuItem key={item.href}>
               <Link href={item.href} className={cn(sidebarMenuButtonVariants({ isActive: pathname.startsWith(item.href) }))}>
-                  <item.icon className="h-5 w-5" />
+                  <item.icon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
                   <span>{item.label}</span>
               </Link>
             </SidebarMenuItem>

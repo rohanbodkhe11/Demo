@@ -36,9 +36,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           <SidebarNav user={user} />
         </Sidebar>
 
-        <SidebarInset className="bg-gray-50 dark:bg-gray-900/50 flex flex-col w-full">
+        <SidebarInset className="bg-white/50 dark:bg-gray-900/50 flex flex-col w-full backdrop-blur-sm">
           {/* Top bar for mobile: toggle + title */}
-          <header className="flex items-center justify-between px-4 py-2 border-b lg:hidden">
+          <header className="flex items-center justify-between px-4 py-3 border-b lg:hidden bg-white/60 dark:bg-gray-900/60">
             <div className="flex items-center gap-3">
               {/* Sidebar toggle shown on small screens */}
               {/* Import dynamically to avoid unused import warnings */}
@@ -50,7 +50,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                   <SidebarToggle />
                 </nav>
               </div>
-              <div className="text-lg font-semibold">AttenEase</div>
+              <div className="text-lg font-semibold text-primary">AttenEase</div>
             </div>
           </header>
 

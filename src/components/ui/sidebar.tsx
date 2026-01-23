@@ -62,19 +62,30 @@ const Sidebar = React.forwardRef<
         aria-hidden={!isOpen}
       >
         {/* overlay */}
-        <div
-          className={cn(
-            'absolute inset-0 bg-black/40 transition-opacity',
-            isOpen ? 'opacity-100' : 'opacity-0'
-          )}
-          onClick={() => setIsOpen(false)}
-        />
+          <div
+            className={cn(
+              'absolute inset-0 bg-black/40 transition-opacity duration-300',
+              isOpen ? 'opacity-100' : 'opacity-0'
+            )}
+            onClick={() => setIsOpen(false)}
+            aria-hidden={isOpen ? 'false' : 'true'}
+          />
 
-        {/* panel */}
-        <div className={cn('absolute left-0 top-0 bottom-0 w-72 bg-background shadow-lg transform transition-transform', isOpen ? 'translate-x-0' : '-translate-x-full')}>
-          {/* allow same children structure inside panel */}
-          <div className={cn('h-full flex flex-col')}>{props.children}</div>
-        </div>
+          {/* panel (mobile drawer) */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className={cn(
+              'absolute left-0 top-0 bottom-0 w-72 bg-background shadow-lg transform transition-transform duration-300 ease-in-out',
+              isOpen ? 'translate-x-0' : '-translate-x-full'
+            )}
+          >
+            {/* allow same children structure inside panel */}
+            <div className={cn('h-full flex flex-col')} aria-hidden={!isOpen}>
+              {props.children}
+            </div>
+          </div>
       </div>
     </>
   )
@@ -180,8 +191,10 @@ function SidebarToggle({ className }: { className?: string }) {
       size="icon"
       className={cn("lg:hidden", className)}
       onClick={() => setIsOpen(!isOpen)}
+      aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+      aria-expanded={isOpen}
     >
-      {isOpen ? <X /> : <Menu />}
+      {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
     </Button>
   )
 }
