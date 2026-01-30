@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { SidebarProvider, Sidebar, SidebarInset, SidebarToggle } from '@/components/ui/sidebar';
 import { SidebarNav } from './sidebar-nav';
 import { Skeleton } from '../ui/skeleton';
+import SyncStatus from './sync-status';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -51,6 +52,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 </nav>
               </div>
               <div className="text-lg font-semibold text-primary">AttenEase</div>
+            </div>
+            <div className="hidden lg:flex items-center gap-4">
+              <SyncStatus />
             </div>
           </header>
 

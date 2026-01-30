@@ -26,6 +26,7 @@ import { UserPlus, FileUp } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import * as XLSX from 'xlsx';
 import { useForm } from 'react-hook-form';
+import { enqueuePending } from '@/lib/offline-queue';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -268,11 +269,14 @@ function AttendanceContent({ course, selectedClass, onStudentsImported }: { cour
       });
 
       if (!res.ok) {
+        // Queue locally and inform the user
+        enqueuePending('pendingAttendance', { report, notifications });
         toast({
           variant: 'destructive',
-          title: 'Error',
-          description: 'Failed to save attendance. Please try again.',
+          title: 'Saved Offline',
+          description: 'Attendance was saved locally and will be synced when online.',
         });
+        router.push(`/reports/${report.id}`);
         return;
       }
 
@@ -284,11 +288,13 @@ function AttendanceContent({ course, selectedClass, onStudentsImported }: { cour
       router.push(`/reports/${report.id}`);
     } catch (error) {
       console.error('Error submitting attendance:', error);
+      enqueuePending('pendingAttendance', { report, notifications });
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to submit attendance. Please try again.',
+        title: 'Saved Offline',
+        description: 'Attendance was saved locally and will be synced when online.',
       });
+      router.push(`/reports/${report.id}`);
     }
   };
 
@@ -519,11 +525,14 @@ function AddStudentDialog({ selectedClass, onStudentAdded }: { selectedClass: st
               })
             }
           } else {
-            toast({ variant: 'destructive', title: 'Error', description: 'Failed to add student.' });
+            // Queue locally and inform the user
+            enqueuePending('pendingStudents', { className: selectedClass, students: [data] });
+            toast({ variant: 'destructive', title: 'Saved Offline', description: 'Student will be added when online.' });
           }
         } catch (error) {
           console.error('Error adding student:', error);
-          toast({ variant: 'destructive', title: 'Error', description: 'Failed to add student.' });
+          enqueuePending('pendingStudents', { className: selectedClass, students: [data] });
+          toast({ variant: 'destructive', title: 'Saved Offline', description: 'Student will be added when online.' });
         }
     }
 

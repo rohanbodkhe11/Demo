@@ -4,6 +4,7 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import type { User, Role } from '@/lib/types';
 import { getFirebaseAuth } from '@/lib/firebase-client';
+import { enqueuePending, processAllQueues } from '@/lib/offline-queue';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -17,7 +18,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string, role?: Role) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
-  register: (data: { name: string; email: string; password: string; role: Role; class?: string; department?: string }) => Promise<{ success: boolean; error?: string }>;
+  register: (data: { name: string; email: string; password: string; role: Role; class?: string; department?: string }) => Promise<{ success: boolean; error?: string; queued?: boolean }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -80,6 +81,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsub();
   }, []);
 
+  // Try to process any pending offline queues when client becomes online
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const tryFlush = () => {
+      if (navigator.onLine) {
+        void processAllQueues();
+      }
+    };
+    tryFlush();
+    window.addEventListener('online', tryFlush);
+    return () => window.removeEventListener('online', tryFlush);
+  }, []);
+
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     const auth = getFirebaseAuth();
     if (!auth) return { success: false, error: 'Auth not available' };
@@ -95,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const register = async (data: { name: string; email: string; password: string; role: Role; class?: string; department?: string }): Promise<{ success: boolean; error?: string }> => {
+  const register = async (data: { name: string; email: string; password: string; role: Role; class?: string; department?: string }): Promise<{ success: boolean; error?: string; queued?: boolean }> => {
     const auth = getFirebaseAuth();
     if (!auth) return { success: false, error: 'Auth not available' };
 
@@ -116,22 +130,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
 
       // Save profile to our API (server will write to Realtime DB or fallback)
-      const res = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
-      });
+      try {
+        const res = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile),
+        });
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        console.error('[Auth] Failed to save profile:', body);
-        return { success: false, error: body.error || 'Failed to save profile' };
+        if (!res.ok) {
+          // Queue profile locally for later sync and still treat registration as succeeded
+          if (typeof window !== 'undefined') enqueuePending('pendingUsers', profile);
+          console.warn('[Auth] Failed to save profile to API, queued for later sync');
+          setUser(profile as User);
+          if (typeof window !== 'undefined') localStorage.setItem('uid', uid);
+          return { success: true, queued: true };
+        }
+
+        // onAuthStateChanged will handle loading the profile; but set immediately for responsiveness
+        setUser(profile as User);
+        if (typeof window !== 'undefined') localStorage.setItem('uid', uid);
+        return { success: true };
+      } catch (err) {
+        // Network error: enqueue and return success with queued flag
+        if (typeof window !== 'undefined') enqueuePending('pendingUsers', profile);
+        console.warn('[Auth] Network error saving profile, queued for later sync', err);
+        setUser(profile as User);
+        if (typeof window !== 'undefined') localStorage.setItem('uid', uid);
+        return { success: true, queued: true };
       }
-
-      // onAuthStateChanged will handle loading the profile; but set immediately for responsiveness
-      setUser(profile as User);
-      if (typeof window !== 'undefined') localStorage.setItem('uid', uid);
-      return { success: true };
     } catch (err: any) {
       console.error('[Auth] Registration error:', err);
       return { success: false, error: err.message || 'Registration failed' };

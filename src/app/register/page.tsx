@@ -73,16 +73,24 @@ export default function RegisterPage() {
     try {
       const result = await register(data);
       if (result.success) {
-        toast({
-          title: "Registration Successful",
-          description: "You can now log in with your new account.",
-        });
-        router.push("/");
+        if (result.queued) {
+          toast({
+            variant: 'destructive',
+            title: 'Registered (Offline)',
+            description: 'Profile saved locally and will sync when online.',
+          });
+        } else {
+          toast({
+            title: 'Registration Successful',
+            description: 'You can now log in with your new account.',
+          });
+        }
+        router.push('/');
       } else {
         toast({
-          variant: "destructive",
-          title: "Registration Failed",
-          description: result.error || "An account with this email may already exist.",
+          variant: 'destructive',
+          title: 'Registration Failed',
+          description: result.error || 'An account with this email may already exist.',
         });
       }
     } catch (error) {

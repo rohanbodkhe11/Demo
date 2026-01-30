@@ -19,6 +19,8 @@ import { LayoutDashboard, BookCheck, BookUser, LogOut, BookCopy, FileText } from
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import BottomNav from './bottom-nav';
+import SyncStatus from './sync-status';
 
 const facultyNavItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -48,7 +50,12 @@ export function SidebarNav({ user }: { user: User }) {
   return (
     <>
       <SidebarHeader className="flex items-center justify-center p-4">
-         <Logo />
+         <div className="flex items-center justify-between w-full">
+           <Logo />
+           <div className="hidden lg:block">
+             <SyncStatus />
+           </div>
+         </div>
       </SidebarHeader>
       <Separator />
       <SidebarContent className="p-4">
@@ -66,11 +73,18 @@ export function SidebarNav({ user }: { user: User }) {
       <Separator />
       <SidebarFooter className="p-4">
         <UserNav user={user} />
+        <div className="mt-2 hidden lg:block">
+          <SyncStatus />
+        </div>
         <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleLogout}>
           <LogOut className="h-5 w-5" />
           <span>Logout</span>
         </Button>
       </SidebarFooter>
+      {/* Mobile bottom nav shown outside the drawer for quick access */}
+      <div className="lg:hidden">
+        <BottomNav />
+      </div>
     </>
   );
 }
