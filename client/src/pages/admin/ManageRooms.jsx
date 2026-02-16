@@ -1,34 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
 import Button from '../../components/Button';
 import { Plus, Edit, Trash2, X } from 'lucide-react';
+import api from '../../api';
 
 const ManageRooms = () => {
-    // Mock data
-    const [rooms, setRooms] = useState([
-        { id: 1, name: 'Deluxe Suite', type: 'Deluxe', price: 2500, availability: true },
-        { id: 2, name: 'Standard AC', type: 'AC', price: 1800, availability: true },
-        { id: 3, name: 'Standard Non-AC', type: 'Non-AC', price: 1200, availability: false },
-    ]);
+    const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchRooms = async () => {
+        try {
+            const response = await api.get('/rooms');
+            setRooms(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching rooms", error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchRooms();
+    }, []);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentRoom, setCurrentRoom] = useState(null);
+    const [formData, setFormData] = useState({ name: '', type: 'Deluxe', price: '', availability: true });
 
     const handleAdd = () => {
         setCurrentRoom(null);
+        setFormData({ name: '', type: 'Deluxe', price: '', availability: true });
         setIsModalOpen(true);
     };
 
     const handleEdit = (room) => {
         setCurrentRoom(room);
+        setFormData({ ...room });
         setIsModalOpen(true);
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this room?')) {
-            setRooms(rooms.filter(r => r.id !== id));
+            try {
+                await api.delete(`/rooms/${id}`);
+                fetchRooms();
+            } catch (error) {
+                alert('Failed to delete room');
+            }
         }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (currentRoom) {
+                // Update logic would go here if API existed
+                alert("Update API pending implementation");
+            } else {
+                await api.post('/rooms', formData);
+            }
+            fetchRooms();
+            closeModal();
+        } catch (error) {
+            console.error("Error saving room:", error);
+            alert("Failed to save room.");
+        }
+    }
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -86,14 +123,24 @@ const ManageRooms = () => {
                                 <X size={20} />
                             </button>
                         </div>
-                        <form className="space-y-4">
+                        <form className="space-y-4" onSubmit={handleSubmit}>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Room Name</label>
-                                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" defaultValue={currentRoom?.name} />
+                                <input
+                                    type="text"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    required
+                                />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Type</label>
-                                <select className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" defaultValue={currentRoom?.type}>
+                                <select
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                    value={formData.type}
+                                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                                >
                                     <option>Deluxe</option>
                                     <option>AC</option>
                                     <option>Non-AC</option>
@@ -101,7 +148,13 @@ const ManageRooms = () => {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Price</label>
-                                <input type="number" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" defaultValue={currentRoom?.price} />
+                                <input
+                                    type="number"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                    value={formData.price}
+                                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                    required
+                                />
                             </div>
                             <div className="flex justify-end gap-2 mt-6">
                                 <Button type="button" variant="ghost" onClick={closeModal}>Cancel</Button>

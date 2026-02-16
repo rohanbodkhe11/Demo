@@ -1,27 +1,34 @@
 import admin from 'firebase-admin';
 import dotenv from 'dotenv';
+import { localDB } from './localDB.js';
 
 dotenv.config();
 
-const connectDB = () => {
-    try {
-        // Check if firebase is already initialized
+let db;
+
+try {
+    if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_PROJECT_ID) {
         if (!admin.apps.length) {
             admin.initializeApp({
                 credential: admin.credential.cert({
                     projectId: process.env.FIREBASE_PROJECT_ID,
                     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-                    // Handle private key newlines
-                    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+                    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
                 }),
             });
-            console.log('Firebase Admin Initialized');
+            console.log('Firebase Connected');
         }
-    } catch (error) {
-        console.error('Firebase Admin Initialization Error:', error);
-        // process.exit(1); // Don't crash if config is missing, just log
+        db = admin.firestore();
+    } else {
+        throw new Error('Missing Firebase Keys');
     }
+} catch (error) {
+    console.warn('Firebase connection failed or keys missing. Using Local JSON DB.');
+    db = localDB;
+}
+
+const connectDB = () => {
+    // Legacy function, no-op as we init on load
 };
 
-const db = admin.firestore();
 export { admin, db, connectDB };
