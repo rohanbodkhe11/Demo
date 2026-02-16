@@ -42,10 +42,11 @@ const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
-  role: z.enum(["student", "faculty"], { required_error: "You must select a role." }),
+  role: z.enum(["student", "faculty", "admin"], { required_error: "You must select a role." }),
   mobileNumber: z.string().regex(/^\d{10}$/, { message: "Please enter a valid 10-digit mobile number." }),
   department: z.string().optional(),
   class: z.string().optional(),
+  secretKey: z.string().optional(),
 });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
@@ -65,13 +66,25 @@ export default function RegisterPage() {
       department: "",
       class: "",
       mobileNumber: "",
+      secretKey: "",
     },
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
     setIsLoading(true);
+
+    if (data.role === 'admin' && data.secretKey !== 'admin123') {
+      toast({
+        variant: 'destructive',
+        title: 'Invalid Credentials',
+        description: 'The admin secret key is incorrect.',
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const result = await register(data);
+      const result = await register({ ...data, role: data.role as any });
       if (result.success) {
         if (result.queued) {
           toast({
@@ -94,11 +107,11 @@ export default function RegisterPage() {
         });
       }
     } catch (error) {
-       toast({
-          variant: "destructive",
-          title: "An error occurred",
-          description: "Something went wrong. Please try again.",
-        });
+      toast({
+        variant: "destructive",
+        title: "An error occurred",
+        description: "Something went wrong. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -108,19 +121,19 @@ export default function RegisterPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-4">
-        <Image
-            src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920&auto=format&fit=crop"
-            alt="University building background"
-            fill
-            className="object-cover -z-10"
-            data-ai-hint="university building"
-        />
-        <div className="absolute inset-0 bg-primary/80 -z-10" />
+      <Image
+        src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920&auto=format&fit=crop"
+        alt="University building background"
+        fill
+        className="object-cover -z-10"
+        data-ai-hint="university building"
+      />
+      <div className="absolute inset-0 bg-primary/80 -z-10" />
       <Card className="w-full max-w-md shadow-2xl z-10 bg-card/90 backdrop-blur-sm">
         <CardHeader className="space-y-2 text-center">
-            <div className="mx-auto">
-                <Logo />
-            </div>
+          <div className="mx-auto">
+            <Logo />
+          </div>
           <CardDescription>Join AttendEase today!</CardDescription>
         </CardHeader>
         <CardContent>
@@ -165,18 +178,18 @@ export default function RegisterPage() {
                   </FormItem>
                 )}
               />
-               <FormField
-                  control={form.control}
-                  name="mobileNumber"
-                  render={({ field }) => (
+              <FormField
+                control={form.control}
+                name="mobileNumber"
+                render={({ field }) => (
                   <FormItem>
-                      <FormLabel>Mobile Number</FormLabel>
-                        <FormControl>
-                            <Input placeholder="e.g., 9876543210" {...field} />
-                        </FormControl>
-                      <FormMessage />
+                    <FormLabel>Mobile Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., 9876543210" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
-                  )}
+                )}
               />
               <FormField
                 control={form.control}
@@ -193,6 +206,7 @@ export default function RegisterPage() {
                       <SelectContent>
                         <SelectItem value="student">Student</SelectItem>
                         <SelectItem value="faculty">Faculty</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -247,6 +261,22 @@ export default function RegisterPage() {
                 />
               )}
 
+              {role === 'admin' && (
+                <FormField
+                  control={form.control}
+                  name="secretKey"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Admin Secret Key</FormLabel>
+                      <FormControl>
+                        <Input type="password" placeholder="Enter admin secret to continue" {...field} value={field.value ?? ""} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
@@ -254,12 +284,12 @@ export default function RegisterPage() {
           </Form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
-            <p className="text-center text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <Link href="/" className="font-medium text-primary hover:underline">
-                Sign In
-                </Link>
-            </p>
+          <p className="text-center text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link href="/" className="font-medium text-primary hover:underline">
+              Sign In
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>

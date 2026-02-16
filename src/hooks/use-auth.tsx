@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                   id: fbUser.uid,
                   name: fbUser.displayName || '',
                   email: fbUser.email || '',
-                  role: 'student',
+                  role: 'student', // Default fallback
                   avatarUrl: fbUser.photoURL || 'https://placehold.co/100x100.png',
                 } as User;
                 setUser(minimal);

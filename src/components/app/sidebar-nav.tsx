@@ -15,12 +15,14 @@ import { UserNav } from "./user-nav";
 import { Separator } from "../ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import type { User } from "@/lib/types";
-import { LayoutDashboard, BookCheck, BookUser, LogOut, BookCopy, FileText } from "lucide-react";
-import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { LayoutDashboard, BookCheck, BookUser, LogOut, BookCopy, FileText, Users, Settings } from "lucide-react";
 import { Logo } from "./logo";
-import BottomNav from './bottom-nav';
-import SyncStatus from './sync-status';
+import SyncStatus from "./sync-status";
+import BottomNav from "./bottom-nav";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
+// ... existing imports
 
 const facultyNavItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -35,12 +37,20 @@ const studentNavItems = [
   { href: "/courses", icon: BookUser, label: "Courses" },
 ];
 
-export function SidebarNav({ user }: { user: User }) {
+const adminNavItems = [
+  { href: "/admin", icon: LayoutDashboard, label: "Overview" },
+  { href: "/admin/users", icon: Users, label: "Manage Users" },
+  { href: "/admin/courses", icon: BookUser, label: "Manage Courses" },
+];
+
+export function SidebarNav({ user }: { user: User | null }) {
   const pathname = usePathname();
   const { logout } = useAuth();
   const router = useRouter();
 
-  const navItems = user.role === 'faculty' ? facultyNavItems : studentNavItems;
+  let navItems = studentNavItems;
+  if (user?.role === 'faculty') navItems = facultyNavItems;
+  if (user?.role === 'admin') navItems = adminNavItems;
 
   const handleLogout = () => {
     logout();
@@ -50,12 +60,12 @@ export function SidebarNav({ user }: { user: User }) {
   return (
     <>
       <SidebarHeader className="flex items-center justify-center p-4">
-         <div className="flex items-center justify-between w-full">
-           <Logo />
-           <div className="hidden lg:block">
-             <SyncStatus />
-           </div>
-         </div>
+        <div className="flex items-center justify-between w-full">
+          <Logo />
+          <div className="hidden lg:block">
+            <SyncStatus />
+          </div>
+        </div>
       </SidebarHeader>
       <Separator />
       <SidebarContent className="p-4">
@@ -63,8 +73,8 @@ export function SidebarNav({ user }: { user: User }) {
           {navItems.map((item) => (
             <SidebarMenuItem key={item.href}>
               <Link href={item.href} className={cn(sidebarMenuButtonVariants({ isActive: pathname.startsWith(item.href) }))}>
-                  <item.icon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
-                  <span>{item.label}</span>
+                <item.icon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                <span>{item.label}</span>
               </Link>
             </SidebarMenuItem>
           ))}
@@ -72,7 +82,7 @@ export function SidebarNav({ user }: { user: User }) {
       </SidebarContent>
       <Separator />
       <SidebarFooter className="p-4">
-        <UserNav user={user} />
+        {user && <UserNav user={user} />}
         <div className="mt-2 hidden lg:block">
           <SyncStatus />
         </div>
